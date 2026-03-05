@@ -17,21 +17,47 @@ APRS integra estaciones móviles, repetidoras digitales (digipeaters) y pasarela
 
 ### ¿Para qué sirve? (Aplicaciones)
 
-- Seguimiento de estaciones móviles en tiempo real.  
-- Transmisión de telemetría (variables técnicas y ambientales).  
-- Mensajería digital entre radioaficionados.  
-- Reportes meteorológicos automáticos.  
-- Comunicaciones de apoyo en situaciones de emergencia (ARRL, 2022).  
+APRS es un sistema versátil que permite la transmisión automática y periódica de información en redes de radioaficionados. Sus principales aplicaciones incluyen:
+
+- **Seguimiento de estaciones móviles en tiempo real**  
+  Permite visualizar la ubicación geográfica de estaciones móviles (vehículos, estaciones portátiles, embarcaciones, bicicletas, etc.) mediante coordenadas obtenidas por GPS.  
+  Esta funcionalidad es ampliamente utilizada en eventos, caravanas, actividades al aire libre y monitoreo de flotas experimentales dentro del ámbito de radioafición.
+
+- **Transmisión de telemetría**  
+  Facilita el envío de variables técnicas y ambientales como voltaje, corriente, temperatura, humedad, presión atmosférica o estado de sensores remotos.  
+  Esto permite supervisar estaciones repetidoras, sistemas solares, nodos remotos o proyectos experimentales de instrumentación.
+
+- **Mensajería digital entre radioaficionados**  
+  APRS permite el envío de mensajes cortos tipo texto entre estaciones, incluyendo confirmación de recepción.  
+  Esta funcionalidad puede operar tanto por radiofrecuencia directa como a través de la red APRS-IS cuando intervienen iGates.
+
+- **Reportes meteorológicos automáticos**  
+  Las estaciones meteorológicas pueden transmitir periódicamente datos como velocidad y dirección del viento, temperatura, lluvia acumulada y presión atmosférica.  
+  Estos datos pueden ser compartidos en tiempo real a nivel local o global.
+
+- **Comunicaciones de apoyo en situaciones de emergencia**  
+  APRS es especialmente útil cuando la infraestructura celular o de Internet falla.  
+  Permite compartir ubicaciones, coordinar recursos y transmitir información básica de estado entre estaciones de radioaficionados, lo cual resulta valioso en escenarios de gestión de desastres y apoyo comunitario (ARRL, 2022).  
 
 
 ### ¿Qué protocolos de comunicación utiliza?
 
-APRS emplea principalmente:
+APRS emplea una arquitectura basada en capas, donde cada elemento cumple una función específica dentro del proceso de transmisión de datos:
 
-- AX.25 (protocolo de enlace de datos para radioaficionados).  
-- AFSK a 1200 baudios en VHF.  
-- Encapsulamiento sobre IP cuando opera mediante la red APRS-IS (Bruninga, 2023).  
+- **AX.25 (Amateur X.25)**  
+  Es el protocolo de enlace de datos utilizado en radioafición. Define la estructura del paquete (frame), el direccionamiento mediante indicativos, los campos de control y el mecanismo de verificación de errores (FCS).  
+  En APRS, AX.25 se utiliza en modo sin conexión (UI frames – *Unnumbered Information*), lo que permite transmitir información de manera eficiente sin establecer sesiones formales entre estaciones.
 
+- **AFSK a 1200 baudios en VHF**  
+  La modulación más común en APRS es **AFSK (Audio Frequency Shift Keying)** a 1200 bps bajo el estándar Bell 202.  
+  En este esquema:
+  - 1200 Hz representa el bit lógico “1”  
+  - 2200 Hz representa el bit lógico “0”  
+  La señal digital se modula como audio y luego se transmite utilizando modulación FM convencional en la banda VHF (típicamente 144–148 MHz). Esto permite que radios FM estándar puedan transportar datos digitales sin hardware especializado adicional.
+
+- **Encapsulamiento sobre IP (APRS-IS)**  
+  Cuando los paquetes APRS son recibidos por estaciones llamadas *iGates*, estos se reenvían a través de Internet utilizando el protocolo TCP/IP hacia la red global conocida como APRS-IS (APRS Internet System).  
+  En este caso, el contenido del paquete AX.25 se encapsula dentro de tráfico IP, permitiendo la visualización global en servidores y aplicaciones web (Bruninga, 2023).
 ### ¿En cuáles bandas de frecuencia opera?
 
 En la Región 2 de la Unión Internacional de Telecomunicaciones (América), APRS opera típicamente en:
