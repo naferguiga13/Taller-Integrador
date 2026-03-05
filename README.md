@@ -1,3 +1,13 @@
+### Tecnológico de Costa Rica
+Escuela de Ingeniería Electrónica  
+EL5610 Taller Integrador  
+Nayelhi Guillen Garcia  
+Katherine Salazar Martinez  
+Grupo 10  
+I Semestre 2026
+
+---
+
 #  Planificación e Investigación del Proyecto
 ##  Objetivos Específicos
 
