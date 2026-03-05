@@ -234,11 +234,11 @@ El cliente final es cualquier usuario, aplicación o sistema que consume los dat
 - **Exportación de datos:** descarga en formatos CSV, JSON o KML para análisis posterior.
 
 
-## 2. Modelo OSI en LoRa / APRS
+##  Modelo OSI en LoRa / APRS
 
 LoRa actúa como tecnología de capa 1 (Física), mientras que LoRaWAN o los protocolos APRS implementan la capa 2 (Enlace de Datos). A continuación se presenta cómo se mapean:
 
-### 2.1 Tabla Modelo OSI LoRa/APRS 
+###  Tabla Modelo OSI LoRa/APRS 
 
 | Capa OSI | Nombre | Implementación en LoRa/APRS |
 |----------|--------|-----------------------------|
@@ -248,18 +248,16 @@ LoRa actúa como tecnología de capa 1 (Física), mientras que LoRaWAN o los pro
 
 ![Modelo OSI LoRa/APRS](Imagenes/ModeloOsi.png)
 
-## 3. Spreading Factor (SF)
+## 1. Spreading Factor (SF)
 
 El **Spreading Factor (Factor de Dispersión)** es el parámetro más influyente de la modulación LoRa (**Chirp Spread Spectrum - CSS**). Determina cuántos *chips* se utilizan para representar un símbolo de datos.
 
-### 3.1 Definición técnica
+### 1.1 Definición técnica
 
 El SF puede tomar valores entre **SF7 y SF12**. Cada incremento en el SF **duplica el tiempo en el aire (Time on Air - ToA)** y **aumenta la sensibilidad del receptor en aproximadamente 2.5 dB**, a costa de **reducir a la mitad la tasa de datos efectiva**.
 
 
-
-
-### 3.2 Tabla comparativa de SF
+### 1.2 Tabla comparativa de SF
 
 | SF | Chips/Símbolo | Sensibilidad (dBm) | Tasa de Datos* (bps) | Tiempo en Aire* | Alcance típico |
 |----|---------------|--------------------|----------------------|-----------------|---------------|
@@ -271,18 +269,18 @@ El SF puede tomar valores entre **SF7 y SF12**. Cada incremento en el SF **dupli
 | SF12 | 4096 | -137 | ~293 | ~1400 ms | Máximo (~14 km) |
 
 
-### 3.3 Selección para LoRa/APRS
+### 1.3 Selección para LoRa/APRS
 
 Para redes **APRS con LoRa en Costa Rica**, los valores más utilizados son **SF9 a SF12**, dependiendo del entorno:
 
 - **SF9 – SF10:** Zonas urbanas y semi-urbanas con buena densidad de *iGates*.  
 - **SF11 – SF12:** Zonas rurales y montañosas como el área del **Volcán Irazú** o **Zona Norte**, donde se requiere máximo alcance.
 
-## 4. Bandwidth (BW) — Ancho de Banda
+## 2. Bandwidth (BW) — Ancho de Banda
 
 El **Bandwidth (BW)** define el rango de frecuencias utilizado en la transmisión LoRa. Es el **ancho del chirp en el dominio de la frecuencia**, expresado en **kHz**.
 
-### 4.1 Valores disponibles
+### 2.1 Valores disponibles
 
 Los chips LoRa soportan los siguientes valores de ancho de banda:
 
@@ -292,7 +290,7 @@ Los chips LoRa soportan los siguientes valores de ancho de banda:
 | 250 kHz  | Media–Alta    | Media                         | Aplicaciones de mayor throughput |
 | 500 kHz  | Alta          | Baja                          | Comunicación de corto alcance |
 
-### 4.2 Relación con otros parámetros
+### 2.2 Relación con otros parámetros
 
 El **BW** está directamente relacionado con el **Spreading Factor (SF)** y la **sensibilidad del receptor**:
 
@@ -301,7 +299,7 @@ El **BW** está directamente relacionado con el **Spreading Factor (SF)** y la *
 
 Duplicar el **BW** reduce la **sensibilidad del receptor en aproximadamente 3 dB**.
 
-## 5. Coding Rate (CR) — Tasa de Codificación
+## 3. Coding Rate (CR) — Tasa de Codificación
 
 El **Coding Rate (CR)** define el nivel de **redundancia añadida a los datos** mediante codificación de **corrección de errores** (*Forward Error Correction – FEC*).  
 Esta redundancia permite que el receptor pueda **detectar y corregir errores causados por ruido o interferencias** durante la transmisión.
@@ -309,19 +307,19 @@ Esta redundancia permite que el receptor pueda **detectar y corregir errores cau
 En LoRa se utiliza un esquema de **codificación Hamming de tasa variable**, donde se agregan bits extra de corrección a los datos originales.
 
 
-## Sync Word - Palabra de sincrinización
+## 4. Sync Word - Palabra de sincrinización
 
 El Sync Word es un byte (o secuencia de bytes) que identifica la red LoRa. Permite que múltiples redes LoRa coexistan en el mismo canal de frecuencia sin interferirse mutuamente, funcionando como un identificador de red en la capa física.
 
-### 6.1 Funcionamiento
+### 4.1 Funcionamiento
 
 Cuando un receptor LoRa detecta una trama entrante, compara el Sync Word recibido con el configurado localmente. Si no coinciden, la trama es descartada sin procesarla, evitando colisiones entre redes distintas.
 
-## 7. ADR — Adaptive Data Rate (Tasa de Datos Adaptativa)
+## 5. ADR — Adaptive Data Rate (Tasa de Datos Adaptativa)
 
 ADR (Adaptive Data Rate) es un mecanismo de la capa de enlace que permite al servidor de red ajustar dinámicamente los parámetros de transmisión de cada nodo (SF, BW y potencia de transmisión) para optimizar el consumo energético y el uso del espectro radioeléctrico.
 
-### 7.1 Principio de funcionamiento
+### 5.1 Principio de funcionamiento
 
 El servidor de red monitorea la calidad de enlace (SNR – Signal to Noise Ratio) de los mensajes recibidos de cada nodo. Basándose en el historial de SNR, decide si es posible usar parámetros menos costosos (menor SF, mayor tasa de datos) manteniendo la confiabilidad de la comunicación.
 
