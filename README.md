@@ -42,7 +42,7 @@ A continuación se listan las herramientas necesarias junto con sus respectivos 
 
 Para ver el paso a paso completo, consulta la [configuración del backend](https://github.com/naferguiga13/Taller-Integrador/blob/main/Documentaci%C3%B3n/entorno_backend_aprsc.md)
 
-#Diagrama de Gantt
+
 ## 📊 Diagrama de Gantt – Servidor APRS (16 Semanas)
 
 ```
