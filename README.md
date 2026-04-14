@@ -42,6 +42,20 @@ A continuación se listan las herramientas necesarias junto con sus respectivos 
 
 Para ver el paso a paso completo, consulta la [configuración del backend](https://github.com/naferguiga13/Taller-Integrador/blob/main/Documentaci%C3%B3n/entorno_backend_aprsc.md)
 
+## Arquitectura del sistema
+
+El siguiente diagrama de bloques representa el flujo completo del sistema:
+
+```mermaid
+graph TD
+    A[Tracker APRS <br/>TI0TEC1-7] --> B[Red APRS <br/>Internet]
+    B --> C[APRSC]
+    C --> D[Collector]
+    D --> E[PostgreSQL]
+    E --> F[Trackdirect Web]
+    F --> G[Navegador]
+
+```
 
 ## 📊 Diagrama de Gantt – Servidor APRS (16 Semanas)
 
