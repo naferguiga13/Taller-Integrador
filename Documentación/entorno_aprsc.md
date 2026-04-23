@@ -11,7 +11,7 @@
 
 ## Máquina virtual
 
-* Nombre: `Ubuntu Server`
+* Nombre: `Integrador`
 * Tipo: Linux
 * Versión: Ubuntu (64-bit)
 
@@ -24,7 +24,7 @@
 | Disco   | 20 GB (VDI dinámico) |
 
 ---
-
+![Descripción](Imagenes/NVW)
 ## 2. Configuración de Red
 
 ```
@@ -32,7 +32,7 @@ NAT ❌ → Adaptador puente (Bridge Adapter) ✅
 ```
 
 Permite acceso desde el host y conexión con otros dispositivos (como el iGate).
-
+![Descripción](imagenes/nombre.png)
 ---
 
 # 3. Instalación de Ubuntu Server
@@ -105,7 +105,7 @@ sudo ufw allow 10000
 ```
 https://IP_DEL_SERVIDOR:10000
 ```
-
+![Descripción](imagenes/nombre.png)
 ---
 
 # 6. Instalación de APRS (aprsc)
@@ -565,7 +565,7 @@ Agregar al final:
 ```
 http://IP_DEL_SERVIDOR
 ```
-
+![Descripción](imagenes/nombre.png)
 ## Verificar paquetes recibidos
 
 ```bash
@@ -578,14 +578,7 @@ sudo -u postgres psql -d trackdirect -c "SELECT COUNT(*) FROM packet;"
 http://IP_DEL_SERVIDOR/?call=TI0TEC1-7&center=9.855,-83.907&zoom=12
 ```
 
-## Verificar trackers en la base de datos
-
-```bash
-sudo -u postgres psql -d trackdirect -c "SELECT name FROM sender WHERE name LIKE 'TI0TEC%';"
-```
-
----
-
+![Descripción](imagenes/nombre.png)
 
 ## Puertos Utilizados
 
