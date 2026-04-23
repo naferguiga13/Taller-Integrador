@@ -586,45 +586,6 @@ sudo -u postgres psql -d trackdirect -c "SELECT name FROM sender WHERE name LIKE
 
 ---
 
-# 12. Problemas Conocidos y Soluciones
-
-### Error: `pthread_setname_np` durante compilación
-**Causa:** Incompatibilidad con GCC moderno.  
-**Solución:** Editar `hlog.c` y cambiar `pthread_setname_np(name)` por `pthread_setname_np(pthread_self(), name)`.
-
-### Error: `MagicBadness` al iniciar aprsc
-**Causa:** Línea de seguridad en el archivo de configuración por defecto.  
-**Solución:** Eliminar la línea `MagicBadness 42.7` del `aprsc.conf`.
-
-### Error: `rundir data is not a directory`
-**Causa:** El parámetro `RunDir` usa ruta relativa.  
-**Solución:** Cambiar `RunDir data` por `RunDir /opt/aprsc/data`.
-
-### Error: `Uplink's logresp message does not say I`
-**Causa:** El ServerId o PassCode son incorrectos.  
-**Solución:** Verificar que el ServerId use cero `0` y no la letra `o`, y que el PassCode sea generado para ese callsign exacto.
-
-### Error: `permission denied for table sender`
-**Causa:** El usuario trackdirect no tiene permisos sobre las tablas.  
-**Solución:** Cambiar el owner de todas las tablas a trackdirect con el comando DO en psql.
-
-### Error: `relation packet20260422 does not exist`
-**Causa:** trackdirect crea tablas por fecha y no existe la del día actual.  
-**Solución:** Crear manualmente con `CREATE TABLE IF NOT EXISTS packet$(date +%Y%m%d) () INHERITS (packet)`.
-
-### Error: `Couldn't listen on any:8090`
-**Causa:** aprsc ocupa el puerto 8090.  
-**Solución:** Cambiar el puerto del wsserver a 8091 en `trackdirect.ini`.
-
-### El mapa muestra "You have been disconnected"
-**Causa:** El websocket_url no tiene el formato correcto.  
-**Solución:** Usar `ws://IP_DEL_SERVIDOR:8091` (con `ws://` no `wss://` y con `:` no `/` antes del puerto).
-
-### Error: `No module named TrackDirectDataCollector`
-**Causa:** PYTHONPATH incorrecto.  
-**Solución:** Usar `PYTHONPATH=/home/vboxuser/trackdirect/server/trackdirect:/home/vboxuser/trackdirect/server:/home/vboxuser/trackdirect`.
-
----
 
 ## Puertos Utilizados
 
@@ -639,8 +600,3 @@ sudo -u postgres psql -d trackdirect -c "SELECT name FROM sender WHERE name LIKE
 | 80 | HTTP | Interfaz web trackdirect |
 | 10000 | HTTPS | Webmin |
 
----
-
-## Autores
-- Equipo 10 - Grupo 8-10
-- Curso: Redes - Instituto Tecnológico de Costa Rica
