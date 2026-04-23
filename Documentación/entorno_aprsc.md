@@ -23,8 +23,9 @@
 | CPU     | 2 núcleos            |
 | Disco   | 20 GB (VDI dinámico) |
 
+![Creación de VM](Imagenes/NVW.png)
 ---
-![Descripción](Imagenes/NVW)
+
 ## 2. Configuración de Red
 
 ```
@@ -32,7 +33,7 @@ NAT ❌ → Adaptador puente (Bridge Adapter) ✅
 ```
 
 Permite acceso desde el host y conexión con otros dispositivos (como el iGate).
-![Descripción](imagenes/nombre.png)
+![Configuración](Imagenes/Settings.png)
 ---
 
 # 3. Instalación de Ubuntu Server
@@ -105,7 +106,7 @@ sudo ufw allow 10000
 ```
 https://IP_DEL_SERVIDOR:10000
 ```
-![Descripción](imagenes/nombre.png)
+![Webmin](Imagenes/webmin.png)
 ---
 
 # 6. Instalación de APRS (aprsc)
