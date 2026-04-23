@@ -56,6 +56,9 @@ graph TD
     F --> G[Navegador]
 
 ```
+## Arquitectura de Red APRS
+<img src="https://github.com/naferguiga13/Taller-Integrador/blob/main/Documentaci%C3%B3n/Imagenes/Arqui_REd_APRS.png" alt="Texto alternativo" width="1000">
+
 
 ## 📊 Diagrama de Gantt – Servidor APRS (16 Semanas)
 
