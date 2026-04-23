@@ -56,8 +56,37 @@ graph TD
     F --> G[Navegador]
 
 ```
+
 ## Arquitectura de Red APRS
 <img src="https://github.com/naferguiga13/Taller-Integrador/blob/main/Documentaci%C3%B3n/Imagenes/Arqui_REd_APRS.png" alt="Texto alternativo" width="1000">
+
+
+## Diagrama de secuencias APRS
+```mermaid
+sequenceDiagram
+    participant T as Tracker APRS (TI0TEC1-7)
+    participant R as Red APRS / Internet
+    participant S as APRSC (Core Server)
+    participant C as Collector
+    participant DB as PostgreSQL
+    participant W as Trackdirect Web
+    participant U as Navegador (Usuario)
+
+    Note over T, U: Flujo de datos de posicionamiento
+
+    T->>R: Envía paquete APRS (Beacon)
+    R->>S: Retransmite trama de datos
+    S->>C: Stream de datos (IS-Feed)
+    C->>DB: Procesa y almacena posición
+
+    Note right of U: El usuario solicita el mapa
+    U->>W: Petición de datos en tiempo real
+    W->>DB: Consulta últimas coordenadas
+    DB-->>W: Retorna registros
+    W-->>U: Renderiza trayectoria en el mapa
+```
+
+
 
 
 ## 📊 Diagrama de Gantt – Servidor APRS (16 Semanas)
