@@ -40,7 +40,7 @@ A continuación se listan las herramientas necesarias junto con sus respectivos 
 
 #### 🔹 [Webmin](https://www.webmin.com/)
 
-Para ver el paso a paso completo, consulta la [configuración del backend](https://github.com/naferguiga13/Taller-Integrador/blob/main/Documentaci%C3%B3n/entorno_backend_aprsc.md)
+Para ver el paso a paso completo, consulta la [configuración del server](https://github.com/naferguiga13/Taller-Integrador/blob/main/Documentaci%C3%B3n/entorno_backend_aprsc.md)
 
 ## Arquitectura del sistema
 
