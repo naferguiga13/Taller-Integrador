@@ -1,3 +1,150 @@
+
+# __Servidor APRS__
+
+APRS (Automatic Packet Reporting System) es un protocolo de comunicación digital desarrollado por Bob Bruninga que permite la transmisión en tiempo real de información de posicionamiento, telemetría y mensajes cortos a través de redes de radioaficionados.
+
+En este proyecto se plantea desplegar un servidor APRS-IS institucional capaz de recibir, almacenar y visualizar paquetes generados por distintos trackers. Este servidor constituye la pieza central de la infraestructura de red del sistema.
+
+# Justificacion Tecnica
+
+## Ubuntu Server 22.04 LTS
+Proporciona estabilidad, soporte extendido y facilidad de gestión de paquetes mediante *apt*.
+
+## VirtualBox
+Permite aislamiento del entorno, snapshots y conectividad mediante modo puente.
+
+## Webmin
+Facilita la administración gráfica del servidor Linux.
+
+## aprsc
+Servidor APRS-IS de alto rendimiento escrito en C, optimizado para concurrencia.
+
+## trackdirect
+Frontend web basado en WebSockets para visualización en tiempo real.
+
+
+
+# Diagramas de la Arquitectura del sistema
+
+El siguiente diagrama de bloques representa el flujo completo del sistema:
+
+```mermaid
+graph TD
+    A[Tracker APRS <br/>TI0TEC1-7] --> B[Red APRS <br/>Internet]
+    B --> C[APRSC]
+    C --> D[Collector]
+    D --> E[PostgreSQL]
+    E --> F[Trackdirect Web]
+    F --> G[Navegador]
+
+```
+## Arquitectura de Red APRS
+
+El siguiente diagrama muestra la arquitectura de red APRS:
+
+```mermaid
+graph LR
+    %% Configuración para líneas en ángulo recto
+    direction LR
+
+    subgraph Internet ["Internet / Red Externa"]
+        direction TB
+        Tracker["Tracker de prueba:<br/>Ti0TEC1-7"]
+        Gateway((Gateway /<br/>Internet))
+        Tracker -- "Paquetes APRS" --> Gateway
+    end
+
+    subgraph VM ["Servidor Ubuntu — VM"]
+        direction TB
+        APRS[Servidor APRS]
+        Trackdirect[Trackdirect<br/>Frontend]
+        Navegador[Navegador de<br/>Usuario]
+        
+        APRS -- "Datos" --> Trackdirect
+        Trackdirect -- "Interfaz Web (http)" --> Navegador
+    end
+
+    subgraph RedLocal ["Red Local / Host"]
+        PC["Computadora Física"]
+    end
+
+    %% Conexiones con estilo ortogonal
+    Gateway -- "Puerto 14580 (APRS-IS)" --> APRS
+    PC -- "Acceso por IP de VM" --> Navegador
+
+    %% Estilos visuales
+    style Internet fill:#1a1a1a,stroke:#555,color:#fff
+    style VM fill:#1a1a1a,stroke:#555,color:#fff
+    style RedLocal fill:#1a1a1a,stroke:#555,color:#fff
+    style Gateway fill:#1a1a1a,stroke:#fff,color:#fff
+    style Tracker fill:#333,stroke:#555,color:#fff
+    style APRS fill:#333,stroke:#555,color:#fff
+    style Trackdirect fill:#333,stroke:#555,color:#fff
+    style Navegador fill:#333,stroke:#555,color:#fff
+    style PC fill:#333,stroke:#555,color:#fff
+```
+
+En el diagrama se presenta la arquitectura de red correspondiente al servidor APRS, organizada en tres bloques principales. El primero representa la red externa o Internet; el segundo, el servidor Ubuntu desplegado en una máquina virtual mediante VirtualBox; y el tercero, la red local o equipo anfitrión.
+
+En el bloque de la red externa se identifica un *tracker* de prueba, denominado TI0TEC1-7, encargado de generar paquetes APRS que contienen información como la posición GPS. Estos datos son enviados hacia un *gateway* de Internet, el cual actúa como intermediario para su transmisión a través de la red.
+
+Posteriormente, los paquetes ingresan al sistema a través del puerto 14580, correspondiente al puerto estándar utilizado por el servicio APRS para la recepción de información desde la red global.
+
+El segundo bloque, asociado al servidor Ubuntu en la máquina virtual, constituye el núcleo del sistema. En este entorno se ejecuta el servidor APRS, encargado de recibir los datos provenientes de Internet, procesarlos y ponerlos a disposición de otros servicios internos. A partir de este punto, la información es transferida al componente Trackdirect, que funciona como interfaz de visualización. Este permite representar los datos en forma de mapas y trayectorias, facilitando su interpretación.
+
+Asimismo, dentro de este bloque se contempla el acceso mediante un navegador web, el cual utiliza el protocolo HTTP para interactuar con la interfaz de usuario. Esto posibilita la visualización en tiempo real de la información procesada.
+
+Finalmente, el tercer bloque corresponde a la red local o equipo anfitrión, es decir, la computadora física desde la cual se accede al sistema. La comunicación se establece mediante la dirección IP de la máquina virtual, lo que permite la interacción con el servidor y la visualización de los datos en un entorno local.
+
+## Secuencia APRS
+
+El siguiente diagrama muestra el diagrama de secuencias de la red APRS
+
+```mermaid
+sequenceDiagram
+    participant T as Tracker APRS (TI0TEC1-7)
+    participant R as Red APRS / Internet
+    participant S as APRSC (Core Server)
+    participant C as Collector
+    participant DB as PostgreSQL
+    participant W as Trackdirect Web
+    participant U as Navegador (Usuario)
+
+    Note over T, U: Flujo de datos de posicionamiento
+
+    T->>R: Envía paquete APRS (Beacon)
+    R->>S: Retransmite trama de datos
+    S->>C: Stream de datos (IS-Feed)
+    C->>DB: Procesa y almacena posición
+
+    Note right of U: El usuario solicita el mapa
+    U->>W: Petición de datos en tiempo real
+    W->>DB: Consulta últimas coordenadas
+    DB-->>W: Retorna registros
+    W-->>U: Renderiza trayectoria en el mapa
+
+```
+
+
+Este diagrama de secuencia del sistema APRS, el cual describe el flujo de datos desde la generación de los paquetes de posicionamiento hasta su visualización en el navegador del usuario. El proceso se divide en dos fases principales: la fase de ingesta de datos y la fase de visualización.
+
+- __Fase de Ingesta de Datos__
+
+El flujo inicia con el _tracker_ APRS TI0TEC1-7, el cual envía periódicamente paquetes de tipo _beacon_ que contienen información de posicionamiento. Estos paquetes son transmitidos mediante radiofrecuencia hacia la red APRS.
+
+Posteriormente, la red APRS, a través de un _iGate_, retransmite las tramas de datos hacia el servidor APRSC mediante una conexión TCP. El servidor APRSC actúa como núcleo del sistema, recibiendo las tramas y distribuyéndolas a través de un flujo interno conocido como _IS-Feed_.
+
+El proceso collector se encuentra suscrito a este flujo de datos, permitiendo la recepción continua de paquetes APRS. Una vez recibidos, el collector procesa la información relevante, como coordenadas geográficas y marcas de tiempo, y la almacena en la base de datos PostgreSQL.
+
+- __Fase de Visualización__
+
+En la segunda fase, el usuario interactúa con el sistema a través de un navegador web. Al acceder a la aplicación Trackdirect Web, el navegador envía una petición de datos en tiempo real.
+
+El servidor web recibe la solicitud y realiza una consulta a la base de datos PostgreSQL para obtener las últimas coordenadas registradas del tracker. La base de datos responde con los registros solicitados, los cuales son procesados por el servidor web.
+
+Finalmente, Trackdirect Web envía la información al navegador del usuario, donde se renderiza la trayectoria del tracker sobre un mapa interactivo, permitiendo la visualización en tiempo real de la posición.
+
+
 # Configuración de Servidor: VirtualBox + Ubuntu Server + Webmin + Servidor APRS
 
 ![VirtualBox](https://img.shields.io/badge/VirtualBox-Instalado-blue?logo=virtualbox)
