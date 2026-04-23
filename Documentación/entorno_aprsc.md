@@ -579,7 +579,7 @@ sudo -u postgres psql -d trackdirect -c "SELECT COUNT(*) FROM packet;"
 http://IP_DEL_SERVIDOR/?call=TI0TEC1-7&center=9.855,-83.907&zoom=12
 ```
 
-![Tracker](Imagenes/TrackerC.PNG)
+![Tracker](TrackerC.PNG)
 
 ## Puertos Utilizados
 
