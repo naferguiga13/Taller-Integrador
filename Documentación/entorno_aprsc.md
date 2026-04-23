@@ -214,7 +214,7 @@ Uplink "Core rotate" full tcp rotate.aprs.net 10152
 
 HTTPStatus 0.0.0.0 14501
 ```
-![Configuración aprsc](Imagenes/Configuracion.png)
+![Configuración aprsc](Imagenes/Configuracion.PNG)
 > **Importante:** Eliminar la línea `MagicBadness 42.7` del archivo.
 
 > **Nota sobre el PassCode:** El passcode se genera a partir del callsign (sin SSID) usando una página generadora como https://apps.magicbug.co.uk/passcode/ ingresando el callsign **TI0TEC** (con cero, no letra o).
@@ -579,7 +579,7 @@ sudo -u postgres psql -d trackdirect -c "SELECT COUNT(*) FROM packet;"
 http://IP_DEL_SERVIDOR/?call=TI0TEC1-7&center=9.855,-83.907&zoom=12
 ```
 
-![Tracker](Imagenes/Tracker de cerca.PNG)
+![Tracker](Imagenes/TrackerC.PNG)
 
 ## Puertos Utilizados
 
