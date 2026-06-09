@@ -170,7 +170,47 @@ Trackdirect --> Navegador
 ```
 
 Arquitectura de Red APRS
+```mermaid
+graph LR
+    %% Configuración para líneas en ángulo recto
+    direction LR
 
+    subgraph Internet ["Internet / Red Externa"]
+        direction TB
+        Tracker["Tracker de prueba:<br/>Ti0TEC1-7"]
+        Gateway((Gateway /<br/>Internet))
+        Tracker -- "Paquetes APRS" --> Gateway
+    end
+
+    subgraph VM ["Servidor Ubuntu — VM"]
+        direction TB
+        APRS[Servidor APRS]
+        Trackdirect[Trackdirect<br/>Frontend]
+        Navegador[Navegador de<br/>Usuario]
+        
+        APRS -- "Datos" --> Trackdirect
+        Trackdirect -- "Interfaz Web (http)" --> Navegador
+    end
+
+    subgraph RedLocal ["Red Local / Host"]
+        PC["Computadora Física"]
+    end
+
+    %% Conexiones con estilo ortogonal
+    Gateway -- "Puerto 14580 (APRS-IS)" --> APRS
+    PC -- "Acceso por IP de VM" --> Navegador
+
+    %% Estilos visuales
+    style Internet fill:#1a1a1a,stroke:#555,color:#fff
+    style VM fill:#1a1a1a,stroke:#555,color:#fff
+    style RedLocal fill:#1a1a1a,stroke:#555,color:#fff
+    style Gateway fill:#1a1a1a,stroke:#fff,color:#fff
+    style Tracker fill:#333,stroke:#555,color:#fff
+    style APRS fill:#333,stroke:#555,color:#fff
+    style Trackdirect fill:#333,stroke:#555,color:#fff
+    style Navegador fill:#333,stroke:#555,color:#fff
+    style PC fill:#333,stroke:#555,color:#fff
+```
 
 El sistema inicia con un tracker APRS instalado en el vehículo, encargado de generar paquetes de posicionamiento. La información es transmitida a través de la red APRS y recibida por un iGate que la reenvía hacia el servidor APRS.
 
