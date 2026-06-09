@@ -150,4 +150,54 @@ Asimismo, se validó la comunicación entre la máquina virtual, los servicios d
 
 ### Plataforma de Monitoreo
 
-![Mapa de Monitoreo](Imagenes/Mapa_monitoreo.JFIF)
+![Mapa de Monitoreo](Imagenes/Mapa_monitoreo.jfif)
+
+
+## 10. Validación del Sistema
+
+Con el fin de verificar el correcto funcionamiento de la solución propuesta, se realizaron pruebas de recepción, procesamiento y visualización de paquetes APRS.
+
+Las pruebas consistieron en monitorear el tracker de prueba TI0TEC1-7 y verificar que la información transmitida fuese recibida correctamente por el servidor APRSC. Posteriormente, se comprobó el almacenamiento de los datos en la base de datos PostgreSQL y su representación gráfica mediante la plataforma Trackdirect.
+
+Durante las pruebas se validaron los siguientes aspectos:
+
+- Recepción correcta de paquetes APRS.
+- Procesamiento de datos por parte del servidor APRSC.
+- Almacenamiento de información en PostgreSQL.
+- Visualización en tiempo real mediante Trackdirect.
+- Acceso desde navegadores web conectados a la red.
+- Funcionamiento estable de los servicios desplegados en Ubuntu Server.
+
+Los resultados obtenidos demostraron que la arquitectura implementada cumple satisfactoriamente con los objetivos planteados para el proyecto.
+
+
+
+## 11. Aplicabilidad en un Entorno Real
+
+Aunque el proyecto fue desarrollado en un entorno académico utilizando un tracker de prueba, la arquitectura implementada puede adaptarse fácilmente a escenarios reales de monitoreo vehicular.
+
+En una empresa dedicada al transporte de piña, cada camión podría incorporar un dispositivo de rastreo APRS capaz de transmitir información de posicionamiento periódicamente. Los datos serían recibidos por el servidor central y visualizados desde un centro de monitoreo.
+
+La disponibilidad de información en tiempo real permitiría:
+
+- Supervisar la ubicación de todos los vehículos de la flota.
+- Detectar retrasos en las rutas planificadas.
+- Identificar detenciones inesperadas.
+- Coordinar asistencia ante averías mecánicas.
+- Recomendar rutas alternativas ante cierres de carreteras.
+- Mejorar la planificación logística de las operaciones.
+
+Debido a que la infraestructura APRS permite manejar múltiples dispositivos simultáneamente, la solución propuesta presenta características de escalabilidad que facilitan su adopción en organizaciones con flotas de diferentes tamaños.
+
+
+## 12. Conclusiones
+
+1. Se implementó exitosamente una infraestructura APRS funcional utilizando Ubuntu Server, APRSC, PostgreSQL y Trackdirect, permitiendo la recepción, procesamiento y visualización de información de posicionamiento en tiempo real.
+
+2. La integración de los diferentes componentes del sistema demostró la viabilidad de construir una plataforma completa de monitoreo utilizando herramientas de software libre.
+
+3. Las pruebas realizadas validaron el correcto flujo de información desde el tracker hasta la interfaz web, verificando la estabilidad y funcionalidad de la arquitectura implementada.
+
+4. La solución propuesta puede aplicarse al monitoreo de camiones dedicados al transporte de piña, facilitando la supervisión de rutas y la toma de decisiones ante incidentes operativos.
+
+5. El proyecto permitió adquirir experiencia práctica en virtualización, administración de servidores Linux, bases de datos, protocolos APRS e integración de sistemas distribuidos.
