@@ -284,7 +284,30 @@ Visualizacion --> EsperandoDatos
 
 ## 8. Flujo de Datos APRS
 Secuencia de Comunicación APRS
+```mermaid
+sequenceDiagram
+    participant T as Tracker APRS (TI0TEC1-7)
+    participant R as Red APRS / Internet
+    participant S as APRSC (Core Server)
+    participant C as Collector
+    participant DB as PostgreSQL
+    participant W as Trackdirect Web
+    participant U as Navegador (Usuario)
 
+    Note over T, U: Flujo de datos de posicionamiento
+
+    T->>R: Envía paquete APRS (Beacon)
+    R->>S: Retransmite trama de datos
+    S->>C: Stream de datos (IS-Feed)
+    C->>DB: Procesa y almacena posición
+
+    Note right of U: El usuario solicita el mapa
+    U->>W: Petición de datos en tiempo real
+    W->>DB: Consulta últimas coordenadas
+    DB-->>W: Retorna registros
+    W-->>U: Renderiza trayectoria en el mapa
+
+```
 
 ## 9. Implementación Realizada
 
