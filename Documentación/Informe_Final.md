@@ -58,22 +58,17 @@ Aunque el proyecto fue implementado utilizando un tracker de prueba dentro de un
 
 La Figura 1 muestra la arquitectura general de la solución propuesta para el monitoreo de camiones dedicados al transporte de piña.
 
+```mermaid
 flowchart LR
 
-A[Camión de Transporte de Piña]
---> B[Tracker APRS]
-
+A[Camión de Transporte de Piña] --> B[Tracker APRS]
 B --> C[Red APRS e iGate]
-
 C --> D[Servidor APRS]
-
-D --> E[Base de Datos]
-
+D --> E[(Base de Datos PostgreSQL)]
 E --> F[Trackdirect]
-
 F --> G[Centro de Monitoreo]
-
-G --> H[Toma de Decisiones]
+G --> H[Toma de Decisiones Logísticas]
+```
 
 
 El sistema inicia con un tracker APRS instalado en el vehículo, encargado de generar paquetes de posicionamiento. La información es transmitida a través de la red APRS y recibida por un iGate que la reenvía hacia el servidor APRS.
@@ -89,24 +84,70 @@ El sistema opera mediante la transmisión periódica de información de ubicaci�
 
 Cuando se detecta una situación anómala, como una detención prolongada o una desviación de la ruta planificada, el personal encargado puede analizar la información disponible y tomar acciones correctivas de forma oportuna.
 
+```mermaid
 flowchart TD
 
-A[Camión en Ruta]
+A[Camión Transportando Piña] --> B[Tracker APRS Envía Posición]
 
-A --> B[Transmisión de Posición]
+B --> C[Red APRS e iGate]
 
-B --> C[Recepción en Servidor APRS]
+C --> D[Servidor APRS]
 
-C --> D[Almacenamiento en Base de Datos]
+D --> E[(Base de Datos PostgreSQL)]
 
-D --> E[Visualización en Trackdirect]
+E --> F[Visualización en Trackdirect]
 
-E --> F{¿Incidente Detectado?}
+F --> G{¿Se Detecta un Incidente?}
 
-F -->|No| G[Continuar Monitoreo]
+G -->|No| H[Continuar Monitoreo]
 
-F -->|Sí| H[Analizar Situación]
+G -->|Sí| I[Analizar Situación]
 
-H --> I[Definir Acción Correctiva]
+I --> J{Tipo de Incidente}
 
-I --> J[Comunicar al Conductor]
+J --> K[Avería Mecánica]
+
+J --> L[Cierre de Carretera]
+
+J --> M[Condiciones Climáticas]
+
+K --> N[Enviar Soporte Técnico]
+
+L --> O[Definir Ruta Alternativa]
+
+M --> O
+
+N --> P[Comunicar al Conductor]
+
+O --> P
+
+P --> Q[Continuar Operación]
+```
+
+
+## 8. Implementación Realizada
+
+Para la implementación del proyecto se desplegó un servidor APRS sobre una máquina virtual Ubuntu Server ejecutada en VirtualBox. El servidor fue configurado utilizando el software aprsc para la recepción y distribución de paquetes APRS.
+
+Como plataforma de administración se utilizó Webmin, permitiendo supervisar el estado de los servicios y gestionar la configuración del sistema de forma remota.
+
+Para el almacenamiento de la información se implementó una base de datos PostgreSQL, mientras que la visualización de los datos se realizó mediante la plataforma Trackdirect, la cual permite representar la posición de los dispositivos sobre mapas interactivos.
+
+Durante las pruebas se logró establecer comunicación con el tracker de prueba TI0TEC1-7, verificando la correcta recepción, procesamiento y visualización de los paquetes APRS transmitidos.
+
+Adicionalmente, se realizaron modificaciones en la interfaz de Trackdirect para adaptar la plataforma a los requerimientos del proyecto y facilitar su utilización dentro del entorno académico.
+
+
+## 9. Resultados Obtenidos
+
+Durante las pruebas realizadas se verificó el correcto funcionamiento de todos los componentes que integran la solución propuesta.
+
+Se logró recibir paquetes APRS provenientes del tracker de prueba y procesarlos mediante el servidor aprsc. Posteriormente, la información fue almacenada en PostgreSQL y visualizada correctamente en la plataforma Trackdirect.
+
+La interfaz web permitió observar la ubicación del tracker sobre el mapa en tiempo real, demostrando la integración exitosa entre los diferentes componentes del sistema.
+
+Asimismo, se validó la comunicación entre la máquina virtual, los servicios desplegados y los clientes web conectados mediante navegador, confirmando la estabilidad general de la plataforma implementada.
+
+### Plataforma de Monitoreo
+
+![Mapa de Monitoreo](Imagenes/Mapa_monitoreo.JFIF)
