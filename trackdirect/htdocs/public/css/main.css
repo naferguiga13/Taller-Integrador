@@ -59,16 +59,19 @@ a {
 /* Add a black background color to the top navigation */
 .topnav {
   overflow: hidden;
-  background-color: #333;
-  background: #464b4c;
-  background-image: -webkit-linear-gradient(top, #464b4c, #3f4344);
-  background-image: -moz-linear-gradient(top, #464b4c, #3f4344);
-  background-image: -o-linear-gradient(top, #464b4c, #3f4344);
-  background-image: linear-gradient(to bottom, #464b4c, #3f4344);
-  -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.06);
-  box-shadow: inset 0 1px rgba(255, 255, 255, 0.06);
 
-  z-index:200;
+  background-color: #003c71;
+  background: #003c71;
+
+  background-image: -webkit-linear-gradient(top, #005ca8, #003c71);
+  background-image: -moz-linear-gradient(top, #005ca8, #003c71);
+  background-image: -o-linear-gradient(top, #005ca8, #003c71);
+  background-image: linear-gradient(to bottom, #005ca8, #003c71);
+
+  -webkit-box-shadow: inset 0 1px rgba(255,255,255,0.15);
+  box-shadow: inset 0 1px rgba(255,255,255,0.15);
+
+  z-index: 200;
 }
 
 /* Style the links inside the navigation bar */
@@ -157,8 +160,9 @@ a {
 }
 
 /* Add a dark background on topnav links and the dropdown button on hover */
-.topnav a:hover, .dropdown:hover .dropbtn {
-  background-color: #555;
+.topnav a:hover,
+.dropdown:hover .dropbtn {
+  background-color: #0077d9;
   color: white;
 }
 
@@ -899,4 +903,27 @@ input[type=submit]:hover {
 
 .gm-style .gm-style-iw-d {
   margin-top: -30px;
+}
+
+/* =====================================================
+   Personalización Grupo 10
+   ===================================================== */
+
+#tdTopnav,
+#tdTopnav .dropdown,
+#tdTopnav .dropbtn,
+#tdTopnav a {
+  background: #080E40 !important;
+  background-color: #080E40 !important;
+  background-image: none !important;
+  color: #FFFFFF !important;
+}
+
+#tdTopnav a:hover,
+#tdTopnav .dropdown:hover,
+#tdTopnav .dropdown:hover .dropbtn,
+#tdTopnav .dropdown-content a:hover {
+  background: #14207A !important;
+  background-color: #14207A !important;
+  color: #FFFFFF !important;
 }
