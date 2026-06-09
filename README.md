@@ -43,6 +43,127 @@ A continuación se listan las herramientas necesarias junto con sus respectivos 
 Para ver el paso a paso completo, consulta la [configuración del server](https://github.com/naferguiga13/Taller-Integrador/blob/main/Documentaci%C3%B3n/entorno_backend_aprsc.md)
 
 
+# Guía rápida de acceso al servidor APRS
+
+## 1. Iniciar los servicios del servidor
+
+Abrir una terminal y ubicarse en el proyecto:
+
+```bash
+cd ~/Taller-Integrador/trackdirect
+```
+
+Levantar todos los contenedores Docker:
+
+```bash
+docker compose up -d
+```
+
+Verificar que todos los servicios estén activos:
+
+```bash
+docker ps
+```
+
+Deben aparecer los siguientes contenedores:
+
+* trackdirect-aprsc-1
+* trackdirect-db-1
+* trackdirect-collector-1
+* trackdirect-web-1
+* trackdirect-websocket-1
+* trackdirect-reverseproxy-1
+* trackdirect-cron-1
+
+---
+
+## 2. Acceder al mapa web
+
+Una vez iniciados los contenedores, abrir un navegador web y acceder a:
+
+```text
+http://localhost
+```
+
+Si se accede desde otra computadora de la misma red local:
+
+```text
+http://<IP_DEL_SERVIDOR>
+```
+
+Por ejemplo:
+
+```text
+http://192.168.1.100
+```
+
+Para conocer la dirección IP del servidor:
+
+```bash
+hostname -I
+```
+
+---
+
+## 3. Acceder a Webmin
+
+Verificar que el servicio Webmin esté activo:
+
+```bash
+sudo systemctl status webmin
+```
+
+Si fuera necesario iniciarlo:
+
+```bash
+sudo systemctl start webmin
+```
+
+Acceder desde un navegador web:
+
+```text
+https://localhost:10000
+```
+
+o desde otra computadora:
+
+```text
+https://<IP_DEL_SERVIDOR>:10000
+```
+
+Por ejemplo:
+
+```text
+https://192.168.1.100:10000
+```
+
+---
+
+## 4. Verificar conexión APRS-IS
+
+Comprobar que el servidor APRS está conectado correctamente a la red APRS-IS:
+
+```bash
+docker logs trackdirect-aprsc-1 | grep verified
+```
+
+Salida esperada:
+
+```text
+TIOTEC verified
+```
+
+---
+
+## 5. Detener el servidor
+
+Para apagar todos los servicios:
+
+```bash
+cd ~/Taller-Integrador/trackdirect
+docker compose down
+```
+
 
 
 ## 📊 Diagrama de Gantt – Servidor APRS (16 Semanas)
