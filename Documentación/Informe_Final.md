@@ -221,6 +221,31 @@ La disponibilidad de información en tiempo real permitiría:
 
 Debido a que la infraestructura APRS permite manejar múltiples dispositivos simultáneamente, la solución propuesta presenta características de escalabilidad que facilitan su adopción en organizaciones con flotas de diferentes tamaños.
 
+## Presupuesto del Proyecto
+
+Con el fin de estimar el valor económico del desarrollo realizado, se efectuó una aproximación basada en las horas de trabajo invertidas durante la implementación y documentación del servidor APRS.
+
+| Actividad | Horas Estimadas |
+|------------|----------------:|
+| Investigación y planificación | 6 |
+| Instalación y configuración del entorno | 4 |
+| Configuración del servidor APRS | 8 |
+| Integración de PostgreSQL y Trackdirect | 10 |
+| Resolución de problemas y depuración | 8 |
+| Personalización de la plataforma | 4 |
+| Pruebas y validación | 6 |
+| Documentación | 4 |
+| **Total** | **50 horas** |
+
+Para efectos de estimación comercial, se considera una tarifa profesional de **₡37 700 por hora**.
+
+| Concepto | Valor |
+|-----------|----------:|
+| Horas de trabajo | 50 h |
+| Tarifa por hora | ₡37 700 |
+| **Costo estimado del proyecto** | **₡1 885 000** |
+
+Esta estimación contempla únicamente el desarrollo, configuración e integración del servidor APRS y sus componentes asociados. No incluye costos de hardware, licencias, infraestructura de red ni mantenimiento posterior a la entrega.
 
 ## 12. Conclusiones
 
