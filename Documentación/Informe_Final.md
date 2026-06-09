@@ -85,6 +85,45 @@ Mediante esta solución, los operadores logísticos pueden conocer la ubicación
 
 Aunque el proyecto fue implementado utilizando un tracker de prueba dentro de un entorno académico, la arquitectura propuesta puede ampliarse para soportar múltiples vehículos operando simultáneamente en un escenario real.
 
+Nivel 1 - Ecosistema y Función
+
+```mermaid
+flowchart LR
+
+A[Camión de Transporte de Piña]
+--> B[Tracker APRS]
+
+B --> C[iGate APRS]
+
+C --> D[Servidor APRS]
+
+D --> E[Trackdirect]
+
+E --> F[Centro de Monitoreo]
+
+F --> G[Toma de Decisiones]
+```
+Nivel 2 - Separación Funcional
+```mermaid
+flowchart TD
+
+A[Sistema de Monitoreo]
+
+A --> B[Recepción de Datos]
+
+A --> C[Procesamiento]
+
+A --> D[Visualización]
+
+B --> B1[APRSC]
+B --> B2[iGate]
+
+C --> C1[Collector]
+C --> C2[PostgreSQL]
+
+D --> D1[Trackdirect]
+D --> D2[Navegador Web]
+```
 
 ## 6. Arquitectura del Sistema
 
@@ -101,6 +140,36 @@ E --> F[Trackdirect]
 F --> G[Centro de Monitoreo]
 G --> H[Toma de Decisiones Logísticas]
 ```
+
+Diagrama de Bloques del Sistema
+```mermaid
+graph TD
+    A[Tracker APRS TI0TEC1-7]
+    --> B[Red APRS]
+    --> C[APRSC]
+    --> D[Collector]
+    --> E[PostgreSQL]
+    --> F[Trackdirect]
+    --> G[Navegador]
+```
+Diagrama de Interconexión de Componentes
+```mermaid
+flowchart LR
+
+Tracker --> iGate
+
+iGate -->|TCP 14580| APRSC
+
+APRSC -->|IS Feed| Collector
+
+Collector --> PostgreSQL
+
+PostgreSQL --> Trackdirect
+
+Trackdirect --> Navegador
+```
+
+Arquitectura de Red APRS
 
 
 El sistema inicia con un tracker APRS instalado en el vehículo, encargado de generar paquetes de posicionamiento. La información es transmitida a través de la red APRS y recibida por un iGate que la reenvía hacia el servidor APRS.
@@ -155,9 +224,29 @@ O --> P
 
 P --> Q[Continuar Operación]
 ```
+Máquina de Estados
+
+```mermaid
+stateDiagram-v2
+
+[*] --> EsperandoDatos
+
+EsperandoDatos --> Recepcion
+
+Recepcion --> Procesamiento
+
+Procesamiento --> Almacenamiento
+
+Almacenamiento --> Visualizacion
+
+Visualizacion --> EsperandoDatos
+```
+
+## 8. Flujo de Datos APRS
+Secuencia de Comunicación APRS
 
 
-## 8. Implementación Realizada
+## 9. Implementación Realizada
 
 Para la implementación del proyecto se desplegó un servidor APRS sobre una máquina virtual Ubuntu Server ejecutada en VirtualBox. El servidor fue configurado utilizando el software aprsc para la recepción y distribución de paquetes APRS.
 
@@ -170,7 +259,7 @@ Durante las pruebas se logró establecer comunicación con el tracker de prueba 
 Adicionalmente, se realizaron modificaciones en la interfaz de Trackdirect para adaptar la plataforma a los requerimientos del proyecto y facilitar su utilización dentro del entorno académico.
 
 
-## 9. Resultados Obtenidos
+## 10. Resultados Obtenidos
 
 Durante las pruebas realizadas se verificó el correcto funcionamiento de todos los componentes que integran la solución propuesta.
 
@@ -185,7 +274,7 @@ Asimismo, se validó la comunicación entre la máquina virtual, los servicios d
 ![Mapa de Monitoreo](Imagenes/Mapa_monitoreo.jfif)
 
 
-## 10. Validación del Sistema
+## 11. Validación del Sistema
 
 Con el fin de verificar el correcto funcionamiento de la solución propuesta, se realizaron pruebas de recepción, procesamiento y visualización de paquetes APRS.
 
@@ -204,7 +293,7 @@ Los resultados obtenidos demostraron que la arquitectura implementada cumple sat
 
 
 
-## 11. Aplicabilidad en un Entorno Real
+## 12. Aplicabilidad en un Entorno Real
 
 Aunque el proyecto fue desarrollado en un entorno académico utilizando un tracker de prueba, la arquitectura implementada puede adaptarse fácilmente a escenarios reales de monitoreo vehicular.
 
@@ -247,7 +336,7 @@ Para efectos de estimación comercial, se considera una tarifa profesional de **
 
 Esta estimación contempla únicamente el desarrollo, configuración e integración del servidor APRS y sus componentes asociados. No incluye costos de hardware, licencias, infraestructura de red ni mantenimiento posterior a la entrega.
 
-## 12. Conclusiones
+## 13. Conclusiones
 
 1. Se implementó exitosamente una infraestructura APRS funcional utilizando Ubuntu Server, APRSC, PostgreSQL y Trackdirect, permitiendo la recepción, procesamiento y visualización de información de posicionamiento en tiempo real.
 
