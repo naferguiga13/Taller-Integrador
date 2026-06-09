@@ -1,3 +1,35 @@
+<div align="center">
+
+# Instituto Tecnológico de Costa Rica
+
+## Escuela de Ingeniería Electrónica
+
+### EL5610 - Taller Integrador
+
+<br>
+
+# Sistema de Monitoreo de Camiones de Transporte de Piña mediante APRS
+
+### Proyecto Final
+
+<br><br>
+
+**Nayelhi Guillén García**  
+**Katherine Salazar Martínez**
+
+<br>
+
+**Grupo 10**
+
+<br>
+
+**I Semestre 2026**
+
+</div>
+
+---
+
+
 ## 1. Introducción
 
 La gestión eficiente del transporte es un elemento fundamental dentro de la cadena logística de productos agrícolas. En Costa Rica, la industria piñera depende del traslado constante de materia prima desde las fincas de producción hacia centros de procesamiento, almacenamiento y exportación. Debido a las grandes distancias recorridas y a las condiciones variables de las rutas, resulta importante contar con mecanismos que permitan supervisar la ubicación de los vehículos en tiempo real.
